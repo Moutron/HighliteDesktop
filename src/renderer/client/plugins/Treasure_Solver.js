@@ -57,13 +57,13 @@ var TreasureSolver = class extends Plugin {
     const playerInfo_X = document?.querySelector("#player-info-label_x");
     const playerInfo_Y = document?.querySelector("#player-info-label_y");
     const playerInfo_Level = document?.querySelector("#player-info-label_level");
-    const playerPosition = document?.highlite?.gameHooks.EntityManager._entityManager._mainPlayer._currentGamePosition;
-    const playerLevel = document?.highlite?.gameHooks.EntityManager._entityManager._mainPlayer._currentMapLevel;
-    if (playerInfo_X)
+    const playerPosition = document?.highlite?.gameHooks.EntityManager.Instance._mainPlayer._currentGamePosition;
+    const playerLevel = document?.highlite?.gameHooks.EntityManager.Instance._mainPlayer._currentMapLevel;
+    if (playerInfo_X && playerPosition)
       playerInfo_X.textContent = "X: " + playerPosition._x;
-    if (playerInfo_Y)
+    if (playerInfo_Y && playerPosition)
       playerInfo_Y.textContent = "Y: " + playerPosition._z;
-    if (playerInfo_Level)
+    if (playerInfo_Level && playerLevel !== undefined)
       playerInfo_Level.textContent = "Level: " + this.getPlayerLevelName(playerLevel);
   }
   getPlayerLevelName(level) {
@@ -134,10 +134,6 @@ var TreasureSolver = class extends Plugin {
     this.playerLocationInfo.appendChild(playerInfo_X);
     this.playerLocationInfo.appendChild(playerInfo_Y);
     this.playerLocationInfo.appendChild(playerInfo_Level);
-    this.treasureMapInfo.appendChild(treasureMapInfoLabel);
-    this.treasureMapInfo.appendChild(treasureMapData_X);
-    this.treasureMapInfo.appendChild(treasureMapData_Y);
-    this.treasureMapInfo.appendChild(treasureMapData_Level);
     this.treasureInfoContainer.appendChild(mapButton);
     this.treasureInfoContainer.appendChild(this.treasureMapInfo);
     this.treasureInfoContainer.appendChild(this.playerLocationInfo);

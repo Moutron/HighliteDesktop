@@ -89,12 +89,14 @@ export async function createClientWindow() {
     });
 
     mainWindow.webContents.on('console-message', (event) => {
-        ipcMain.emit('add-console-message', {
-            level: event.level,
-            text: event.message,
-            lineNumber: event.lineNumber,
-            source: event.sourceId
-        });
+        if (!mainWindow.isDestroyed()) {
+            ipcMain.emit('add-console-message', {
+                level: event.level,
+                text: event.message,
+                lineNumber: event.lineNumber,
+                source: event.sourceId
+            });
+        }
     });
 
     // In development, modify requests to High Spell servers

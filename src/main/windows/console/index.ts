@@ -39,21 +39,17 @@ export async function createConsoleWindow() {
 
    consoleWindow.setMenu(null);
     ipcMain.on('show-console', () => {
-        if (consoleWindow) {
+        if (consoleWindow && !consoleWindow.isDestroyed()) {
             if (consoleWindow.isMinimized()) {
                 consoleWindow.restore();
             }
             consoleWindow.show();
-        } else {
-            console.error('Console window is not initialized');
         }
     });
 
     ipcMain.on('add-console-message', (data) => {
-        if (consoleWindow) {
+        if (consoleWindow && !consoleWindow.isDestroyed()) {
             consoleWindow.webContents.send('add-console-message', data);
-        } else {
-            console.error('Console window is not initialized');
         }
     });
 
